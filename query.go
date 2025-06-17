@@ -73,6 +73,8 @@ func (me *forwarder) queryAvahi(ctx context.Context, name string, proto int32, r
 	if err != nil {
 		return nil, err
 	}
+	// TODO(Harper): Optionally specify very low timeout, so that killing avahi2dns quickly makes .local addresses stop resolving
+	//               See https://github.com/miekg/dns/blob/96a6b9c19dd7b14558793fa557a62cfd3da5282d/doc.go#L21-L27
 	rr, err := dns.NewRR(fmt.Sprintf("%s %s %s", name, recordType, address))
 	if err != nil {
 		return nil, fmt.Errorf("failed to create result record: %w", err)
